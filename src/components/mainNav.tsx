@@ -19,7 +19,20 @@ const navItems: navItem[] = [
   },
 ]
 export default () => {
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState({
+    opacity: 0,
+    transform: 'translateY(-10px)',
+  })
+  const handleClick = () => {
+    if (menuOpen.opacity === 0) {
+      setMenuOpen({
+        opacity: 1,
+        transform: 'translateY(0px)',
+      })
+    } else {
+      setMenuOpen({ opacity: 0, transform: 'translateY(-10px)' })
+    }
+  }
   return (
     <div className='flex items-center md:gap-10'>
       <Link href='/' className='hidden md:inline-block'>
@@ -36,14 +49,10 @@ export default () => {
           </Link>
         ))}
       </nav>
-      <button
-        type='button'
-        onClick={() => setMenuOpen(!menuOpen)}
-        className='md:hidden'
-      >
+      <button type='button' onClick={() => handleClick()} className='md:hidden'>
         menu
       </button>
-      {menuOpen && <MobileNav items={navItems} />}
+      {menuOpen && <MobileNav items={navItems} menuOpen={menuOpen} />}
     </div>
   )
 }
