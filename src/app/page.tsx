@@ -1,11 +1,43 @@
-import { Button } from '@/components/ui/button'
-import Image from 'next/image'
+import { Button, buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
+import Link from 'next/link'
 
 export default function Home() {
   return (
-    <div className='grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]'>
+    <div className=''>
       <main>
-        <Button>Button</Button>
+        <section className='pt-6 flex justify-center'>
+          <div className='container text-center flex flex-col items-center gap-3'>
+            <Link href='/' className='bg-gray-300 p-4 rounded-lg'>
+              follow X
+            </Link>
+            <h1 className='text-xl font-bold'>next-shadcn-supabase</h1>
+            <p className='text-sm text-gray-500'>
+              next-shadcn-supabase burabura burabura burabura
+            </p>
+            <div className='space-x-4'>
+              <Link
+                href='/'
+                target='_blank'
+                rel='noreferrer'
+                className={cn(buttonVariants({ size: 'lg' }), 'text-md')}
+              >
+                start
+              </Link>
+              <Link
+                href='/'
+                target='_blank'
+                rel='noreferrer'
+                className={cn(
+                  buttonVariants({ size: 'lg', variant: 'outline' }),
+                  'text-md',
+                )}
+              >
+                github
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   )
