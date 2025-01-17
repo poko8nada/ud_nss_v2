@@ -1,3 +1,4 @@
+import FeatureItem from '@/components/featureItem'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
@@ -54,21 +55,28 @@ export default function Home() {
                 buraburabura buraburabura
               </p>
             </div>
-            <div className='grid grid-cols-2 gap-4 space-y-6 md:grid-cols-3'>
-              <div className='flex flex-col items-center gap-1 rounded-md border bg-background p-4'>
-                <Image
-                  src='/images/next.svg'
-                  alt='Next.js Logo'
-                  width={40}
-                  height={40}
-                />
-                <div>
-                  <h3 className='text-center'>Next.js</h3>
-                  <p className='text-center text-muted-foreground text-sm'>
-                    App routerを使ったプロジェクト
-                  </p>
-                </div>
-              </div>
+            <FeatureItem />
+            <div className='space-y-6'>
+              <p className='text-center text-muted-foreground'>
+                なんかすごくいい感じになります
+              </p>
+            </div>
+          </div>
+        </section>
+        <section className='flex justify-center py-8 pt-6 md:py-12'>
+          <div className='container space-y-6'>
+            <div className='space-y-6'>
+              <h2 className='text-center font-bold text-3xl'>Contact Us</h2>
+              <p className='mx-auto max-w-96 text-center text-muted-foreground'>
+                気に入ったら、XまでDMで連絡してください。
+                <br />
+                連絡お待ちしております。
+              </p>
+            </div>
+            <div className='flex justify-center'>
+              <Link href='/' className='hover:underline'>
+                ご連絡はこちらまで
+              </Link>
             </div>
           </div>
         </section>

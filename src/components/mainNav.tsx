@@ -31,12 +31,14 @@ export default () => {
         transform: 'translateY(0px)',
         height: 'auto',
       })
+      document.body.style.overflow = 'hidden'
     } else {
       setMenuOpen({
         opacity: 0,
         transform: 'translateY(-10px)',
         height: '0',
       })
+      document.body.style.overflow = 'auto'
     }
   }
   return (
