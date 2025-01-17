@@ -22,15 +22,21 @@ export default () => {
   const [menuOpen, setMenuOpen] = useState({
     opacity: 0,
     transform: 'translateY(-10px)',
+    height: '0',
   })
   const handleClick = () => {
     if (menuOpen.opacity === 0) {
       setMenuOpen({
         opacity: 1,
         transform: 'translateY(0px)',
+        height: 'auto',
       })
     } else {
-      setMenuOpen({ opacity: 0, transform: 'translateY(-10px)' })
+      setMenuOpen({
+        opacity: 0,
+        transform: 'translateY(-10px)',
+        height: '0',
+      })
     }
   }
   return (
