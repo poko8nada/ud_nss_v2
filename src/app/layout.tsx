@@ -14,6 +14,31 @@ const notoSans = Noto_Sans_JP({
 export const metadata: Metadata = {
   title: 'next-shadcn-supabase',
   description: 'next-shadcn-supabase',
+  viewport: 'width=device-width, initial-scale=1',
+  // icons: {
+  //   icon: '/favicon.ico',
+  // },
+  // openGraph: {
+  //   title: 'next-shadcn-supabase',
+  //   description: 'next-shadcn-supabase',
+  //   url: 'https://next-shadcn-supabase.vercel.app',
+  //   siteName: 'next-shadcn-supabase',
+  //   images: [
+  //     {
+  //       url: 'https://next-shadcn-supabase.vercel.app/og.png',
+  //       width: 800,
+  //       height: 600,
+  //     },
+  //   ],
+  //   locale: 'ja_JP',
+  //   type: 'website',
+  // },
+  // twitter: {
+  //   card: 'summary_large_image',
+  //   title: 'next-shadcn-supabase',
+  //   description: 'next-shadcn-supabase',
+  //   creator: '@biomejs',
+  //   }
 }
 
 export default function RootLayout({
@@ -43,6 +68,11 @@ export default function RootLayout({
           </nav>
         </header>
         {children}
+        <footer className='my-12 flex items-center justify-center p-4'>
+          <p className='text-muted-foreground text-sm'>
+            &copy; {`${new Date().getFullYear()} next-shadcn-supabase`}
+          </p>
+        </footer>
       </body>
     </html>
   )
