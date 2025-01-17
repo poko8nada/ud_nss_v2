@@ -42,9 +42,9 @@ export default () => {
   return (
     <div className='flex items-center md:gap-10'>
       <Link href='/' className='hidden md:inline-block'>
-        <span className='text-xl font-bold'>Title</span>
+        <span className='font-bold text-xl'>Title</span>
       </Link>
-      <nav className='md:flex space-x-2 text-sm hidden'>
+      <nav className='hidden space-x-2 text-sm md:flex'>
         {navItems.map(item => (
           <Link
             key={item.href}

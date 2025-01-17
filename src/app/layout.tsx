@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang='ja'>
       <body
         className={cn(
-          'bg-background antialiased min-h-screen',
+          'min-h-screen bg-background antialiased',
           notoSans.variable,
         )}
       >

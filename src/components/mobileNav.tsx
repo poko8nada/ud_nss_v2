@@ -19,7 +19,7 @@ export default ({
       }
       style={menuOpen}
     >
-      <nav className='flex space-x-2 text-sm p-4'>
+      <nav className='flex space-x-2 p-4 text-sm'>
         {items.map(item => (
           <Link
             href={item.href}
