@@ -1,9 +1,9 @@
-import FeatureItem from '@/components/featureItem'
+import FeatureItem from '@/components/feature-item'
+import InfoItem from '@/components/info-item'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import Link from 'next/link'
-
 export default function Home() {
   return (
     <div className=''>
@@ -49,6 +49,14 @@ export default function Home() {
         <section className='flex justify-center bg-slate-50 py-8 pt-6 md:py-12'>
           <div className='container space-y-6'>
             <div className='space-y-6'>
+              <h2 className='text-center font-bold text-3xl'>info</h2>
+            </div>
+            <InfoItem />
+          </div>
+        </section>
+        <section className='flex justify-center py-8 pt-6 md:py-12'>
+          <div className='container space-y-6'>
+            <div className='space-y-6'>
               <h2 className='text-center font-bold text-3xl'>feature</h2>
               <p className='mx-auto max-w-96 text-center text-muted-foreground'>
                 this is super feature buraburabura buraburabura buraburabura
@@ -63,7 +71,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className='flex justify-center py-8 pt-6 md:py-12'>
+        <section className='flex justify-center bg-slate-50 py-8 pt-6 md:py-12'>
           <div className='container space-y-6'>
             <div className='space-y-6'>
               <h2 className='text-center font-bold text-3xl'>Contact Us</h2>
