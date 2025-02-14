@@ -2,12 +2,12 @@
 import type { navItem } from '@/types/navItem'
 import Link from 'next/link'
 import { useState } from 'react'
-import MobileNav from './mobileNav'
+import MobileNav from './mobile-nav'
 
 const navItems: navItem[] = [
   {
-    title: 'Blog',
-    href: '/blog',
+    title: 'RSS',
+    href: '/rss',
   },
   {
     title: 'Feature',
