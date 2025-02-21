@@ -1,50 +1,84 @@
 'use server'
 import { JSDOM } from 'jsdom'
 
-export const searchRss = async (
-  url: string,
-): Promise<{ rssUrl: string; error: string[] }> => {
+type props = {
+  rssUrl: string
+  favicon: string
+  error: string[]
+}
+export const searchRss = async (url: string): Promise<props> => {
+  const result: props = {
+    rssUrl: '',
+    favicon: '',
+    error: [],
+  }
+  const regex = /(\.|\/)(rss|rdf|atom|feed|xml)([?].+)?$/i
+  let homeUrl = ''
+
+  if (regex.test(url)) {
+    result.rssUrl = url
+    homeUrl = new URL(url).origin
+    console.log(homeUrl)
+  } else {
+    homeUrl = url
+  }
+
   try {
-    const dom = await JSDOM.fromURL(url)
+    const dom = await JSDOM.fromURL(homeUrl)
     const document = dom.window.document
 
     const html = document.querySelector('html')
-    // console.log(html)
 
-    if (!html) return { rssUrl: url, error: [] }
-
-    let rssUrl = ''
+    if (!html) return { ...result, error: ['invalid URL'] }
 
     const linkTags = html.querySelectorAll('link')
 
     for (const linkTag of linkTags) {
       if (
-        linkTag.getAttribute('type') === 'application/rss+xml' ||
-        linkTag.getAttribute('type') === 'application/atom+xml'
+        linkTag.getAttribute('rel') === 'apple-touch-icon' ||
+        linkTag.getAttribute('rel') === 'icon' ||
+        linkTag.getAttribute('rel') === 'shortcut icon'
       ) {
-        rssUrl = linkTag.getAttribute('href') || ''
+        const href = linkTag.getAttribute('href')
+        if (!href) {
+          result.favicon = ''
+        }
+        if (href?.startsWith('http://') || href?.startsWith('https://')) {
+          result.favicon = href
+        } else if (href?.startsWith('/')) {
+          result.favicon = homeUrl + href
+        } else {
+          result.favicon = `${homeUrl}/${href}`
+        }
       }
     }
 
-    if (rssUrl === '') {
+    if (result.rssUrl === '') {
+      for (const linkTag of linkTags) {
+        if (
+          linkTag.getAttribute('type') === 'application/rss+xml' ||
+          linkTag.getAttribute('type') === 'application/atom+xml'
+        ) {
+          result.rssUrl = linkTag.getAttribute('href') || ''
+        }
+      }
       const links = html.querySelectorAll('a')
-
-      const regex = /(\.|\/)(rss|rdf|atom|feed|xml)([?].+)?$/i
 
       for (const link of links) {
         const href = link.getAttribute('href')
-        // console.log(href)
         if (href && regex.test(href)) {
-          rssUrl = href
+          result.rssUrl = href
           break
         }
       }
     }
-    console.log(rssUrl)
 
-    return { rssUrl, error: rssUrl === '' ? ['RSS not found'] : [] }
+    return {
+      ...result,
+      error: result.rssUrl === '' ? ['RSS not found'] : [],
+    }
   } catch (error) {
     console.error(error)
-    return { rssUrl: '', error: ['invalid URL'] }
+    return { ...result, error: ['invalid URL'] }
   }
 }

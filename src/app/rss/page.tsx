@@ -13,6 +13,7 @@ export default function Page() {
     feedDescription: '',
     error: [],
     isModalReady: false,
+    favicon: '',
   })
   console.log(state)
   const [modalOpen, setModalOpen] = useState(false)

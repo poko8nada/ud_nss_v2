@@ -9,6 +9,7 @@ export type props = {
   feedDescription: string
   error: string[]
   isModalReady: boolean
+  favicon: string
 }
 
 export async function handleSubmit(
@@ -16,14 +17,19 @@ export async function handleSubmit(
   formData: FormData,
 ): Promise<props> {
   const urlValue = formData.get('url')
+  const initialState = {
+    url: '',
+    items: [],
+    feedTitle: '',
+    feedDescription: '',
+    error: [],
+    isModalReady: false,
+    favicon: '',
+  }
   if (!urlValue) {
     return {
-      url: '',
-      items: [],
-      feedTitle: '',
-      feedDescription: '',
+      ...initialState,
       error: ['invalid URL'],
-      isModalReady: false,
     }
   }
   const url = urlValue.toString().trim()
@@ -36,32 +42,25 @@ export async function handleSubmit(
   if (state.url === addProtocolUrl) {
     return state
   }
+
   try {
     new URL(addProtocolUrl)
   } catch {
     return {
-      ...state,
+      ...initialState,
       url: addProtocolUrl,
-      items: [],
-      feedTitle: '',
-      feedDescription: '',
       error: ['invalid URL'],
-      isModalReady: false,
     }
   }
 
-  const { rssUrl, error } = await searchRss(addProtocolUrl)
+  const { rssUrl, favicon, error } = await searchRss(addProtocolUrl)
   console.log(rssUrl)
 
   if (rssUrl === '') {
     return {
-      ...state,
+      ...initialState,
       url: addProtocolUrl,
-      items: [],
-      feedTitle: '',
-      feedDescription: '',
       error: error,
-      isModalReady: false,
     }
   }
   const addHostNameRssUrl =
@@ -70,7 +69,9 @@ export async function handleSubmit(
       : `${addProtocolUrl}/${rssUrl}`
 
   const feeds = await parse([addHostNameRssUrl])
-  const items = feeds.flatMap(feed => feed.items)
+  const items = feeds
+    .flatMap(feed => feed.items)
+    .filter((_, index) => index < 10)
   const feedTitle = feeds.length > 0 ? feeds[0].feedTitle : ''
   const feedDescription = feeds.length > 0 ? feeds[0].feedDescription : ''
   return {
@@ -80,5 +81,6 @@ export async function handleSubmit(
     feedDescription,
     error: [],
     isModalReady: true,
+    favicon,
   }
 }

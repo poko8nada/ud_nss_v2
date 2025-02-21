@@ -10,7 +10,7 @@ export const SearchInput = ({ error }: SearchInputProps) => {
 
   return (
     <div className='flex justify-center'>
-      <div className='flex gap-2 max-w-lg items-start w-[400px]'>
+      <div className='flex gap-2 max-w-[500px] items-start w-full'>
         <div className='w-full'>
           <input
             type='text'

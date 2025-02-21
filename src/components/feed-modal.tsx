@@ -1,6 +1,5 @@
 import type { items } from '@/lib/parse'
 import { cn } from '@/lib/utils'
-import { useState } from 'react'
 import { useFormStatus } from 'react-dom'
 
 export const FeedModal = ({
@@ -23,7 +22,6 @@ export const FeedModal = ({
   const { pending } = useFormStatus()
   return (
     <div
-      id='extralarge-modal'
       tabIndex={-1}
       className={cn(
         'fixed top-0 left-0 right-0 z-50 w-full overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)]  max-h-0 transition-transform duration-300 ease-in-out bg-gray-800 bg-opacity-50',
@@ -31,7 +29,11 @@ export const FeedModal = ({
           'max-h-full': isModalReady && modalOpen && !pending,
         },
       )}
-      onClick={() => setModalOpen(false)}
+      onClick={e => {
+        if (e.target === e.currentTarget) {
+          setModalOpen(false)
+        }
+      }}
       onKeyUp={() => setModalOpen(false)}
     >
       <div
