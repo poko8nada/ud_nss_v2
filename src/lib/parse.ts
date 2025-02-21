@@ -43,9 +43,9 @@ async function parse(urlList: string[]): Promise<feed[]> {
       urlList.map(async url => {
         const feed = await parser.parseURL(url)
         console.log(feed)
-        const feedTitle = feed.title || ' '
-        const feedLink = feed.link || ' '
-        const feedDescription = feed.description || ' '
+        const feedTitle = feed.title || ''
+        const feedLink = feed.link || ''
+        const feedDescription = feed.description || ''
 
         const items = feed.items.map(item => {
           return {

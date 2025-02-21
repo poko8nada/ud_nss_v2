@@ -36,6 +36,7 @@ export const searchRss = async (url: string): Promise<props> => {
     for (const linkTag of linkTags) {
       if (
         linkTag.getAttribute('rel') === 'apple-touch-icon' ||
+        linkTag.getAttribute('rel') === 'apple-touch-icon-precomposed' ||
         linkTag.getAttribute('rel') === 'icon' ||
         linkTag.getAttribute('rel') === 'shortcut icon'
       ) {
@@ -60,8 +61,12 @@ export const searchRss = async (url: string): Promise<props> => {
           linkTag.getAttribute('type') === 'application/atom+xml'
         ) {
           result.rssUrl = linkTag.getAttribute('href') || ''
+          break
         }
       }
+    }
+
+    if (result.rssUrl === '') {
       const links = html.querySelectorAll('a')
 
       for (const link of links) {
@@ -69,6 +74,19 @@ export const searchRss = async (url: string): Promise<props> => {
         if (href && regex.test(href)) {
           result.rssUrl = href
           break
+        }
+      }
+    }
+
+    if (result.rssUrl !== '') {
+      if (
+        !result.rssUrl.startsWith('http://') &&
+        !result.rssUrl.startsWith('https://')
+      ) {
+        if (result.rssUrl.startsWith('/')) {
+          result.rssUrl = homeUrl + result.rssUrl
+        } else {
+          result.rssUrl = `${homeUrl}/${result.rssUrl}`
         }
       }
     }

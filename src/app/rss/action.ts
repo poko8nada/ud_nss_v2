@@ -3,7 +3,8 @@ import { type items, parse } from '@/lib/parse'
 import { searchRss } from '@/lib/search-rss'
 
 export type props = {
-  url: string | null
+  rssUrl: string | null
+  url: string
   items: items[]
   feedTitle: string
   feedDescription: string
@@ -18,6 +19,7 @@ export async function handleSubmit(
 ): Promise<props> {
   const urlValue = formData.get('url')
   const initialState = {
+    rssUrl: '',
     url: '',
     items: [],
     feedTitle: '',
@@ -32,7 +34,7 @@ export async function handleSubmit(
       error: ['invalid URL'],
     }
   }
-  const url = urlValue.toString().trim()
+  const url = urlValue.toString().trim().replace(/\/$/, '')
 
   const addProtocolUrl =
     url.startsWith('http://') || url.startsWith('https://')
@@ -63,19 +65,16 @@ export async function handleSubmit(
       error: error,
     }
   }
-  const addHostNameRssUrl =
-    rssUrl.startsWith('http://') || rssUrl.startsWith('https://')
-      ? rssUrl
-      : `${addProtocolUrl}/${rssUrl}`
 
-  const feeds = await parse([addHostNameRssUrl])
+  const feeds = await parse([rssUrl])
   const items = feeds
     .flatMap(feed => feed.items)
-    .filter((_, index) => index < 10)
+    .filter((_, index) => index < 5)
   const feedTitle = feeds.length > 0 ? feeds[0].feedTitle : ''
   const feedDescription = feeds.length > 0 ? feeds[0].feedDescription : ''
   return {
-    url: addProtocolUrl,
+    rssUrl,
+    url: new URL(rssUrl).origin,
     items,
     feedTitle,
     feedDescription,

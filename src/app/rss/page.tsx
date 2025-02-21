@@ -7,6 +7,7 @@ import { handleSubmit } from './action'
 
 export default function Page() {
   const [state, action] = useActionState(handleSubmit, {
+    rssUrl: '',
     url: '',
     items: [],
     feedTitle: '',
@@ -32,6 +33,7 @@ export default function Page() {
           feedDescription={state.feedDescription}
           items={state.items}
           isModalReady={state.isModalReady}
+          favicon={state.favicon}
           modalOpen={modalOpen}
           setModalOpen={setModalOpen}
         />
