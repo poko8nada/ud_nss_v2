@@ -1,6 +1,6 @@
 'use client'
 import { FeedModal } from '@/components/feed-modal'
-import { SearchInput } from '@/components/search-input'
+import { SearchForm } from '@/components/search-from'
 import Form from 'next/form'
 import { useActionState, useState } from 'react'
 import { handleSubmit } from './action'
@@ -26,7 +26,7 @@ export default function Page() {
         className='mb-5'
         onSubmit={() => setModalOpen(true)}
       >
-        <SearchInput error={state.error} />
+        <SearchForm error={state.error} />
         <FeedModal
           url={state.url ?? ''}
           feedTitle={state.feedTitle}
