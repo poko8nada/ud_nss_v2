@@ -1,12 +1,15 @@
+import { signIn } from '@/auth'
+import { LoginBtn } from '@/components/login-btn'
 import { Button } from '@/components/ui/button'
 import { Icons } from '@/components/ui/icons'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import Form from 'next/form'
 
 export const AuthForm = () => {
   return (
     <div className='grid gap-6'>
-      <form>
+      <Form action=''>
         <div className='grid gap-2'>
           <Label htmlFor='email'>Email</Label>
           <Input
@@ -17,8 +20,13 @@ export const AuthForm = () => {
           />
           <Button type='submit'>login</Button>
         </div>
-      </form>
-      <form>
+      </Form>
+      <Form
+        action={async () => {
+          'use server'
+          await signIn('github', { redirectTo: '/dashboard' })
+        }}
+      >
         <div className='grid gap-6'>
           <div className='relative flex items-center justify-center'>
             <hr className='absolute w-full inset-0' />
@@ -26,12 +34,9 @@ export const AuthForm = () => {
               or
             </span>
           </div>
-          <Button variant='outline'>
-            <Icons.github />
-            login with Github
-          </Button>
+          <LoginBtn icon={<Icons.github />} name='login w/ Github' />
         </div>
-      </form>
+      </Form>
     </div>
   )
 }

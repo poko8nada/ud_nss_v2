@@ -59,7 +59,7 @@ export const getInfo = async () => {
       return true
     })
 
-  console.log(filteredInfo)
+  // console.log(filteredInfo)
 
   return filteredInfo
 }
