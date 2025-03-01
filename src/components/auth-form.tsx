@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Form from 'next/form'
 
-export const AuthForm = () => {
+export const AuthForm = ({ type }: { type: string }) => {
   return (
     <div className='grid gap-6'>
       <Form action=''>
@@ -18,7 +18,7 @@ export const AuthForm = () => {
             placeholder='email@example.com'
             id='email'
           />
-          <Button type='submit'>login</Button>
+          <Button type='submit'>{type}</Button>
         </div>
       </Form>
       <Form
@@ -34,7 +34,7 @@ export const AuthForm = () => {
               or
             </span>
           </div>
-          <LoginBtn icon={<Icons.github />} name='login w/ Github' />
+          <LoginBtn icon={<Icons.github />} name='w/ Github' />
         </div>
       </Form>
     </div>
