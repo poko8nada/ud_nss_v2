@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function Page() {
   return (
-    <div className='space-y-8 max-w-[360px]'>
+    <div className='space-y-8 p-3 max-w-[360px]'>
       <h1 className='text-2xl text-center'>welcome back</h1>
       <AuthForm type={'Log In'} />
 
