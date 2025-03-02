@@ -1,4 +1,3 @@
-import { signIn } from '@/auth'
 import { LoginBtn } from '@/components/login-btn'
 import { Button } from '@/components/ui/button'
 import { Icons } from '@/components/ui/icons'
@@ -21,12 +20,7 @@ export const AuthForm = ({ type }: { type: string }) => {
           <Button type='submit'>{type}</Button>
         </div>
       </Form>
-      <Form
-        action={async () => {
-          'use server'
-          await signIn('github', { redirectTo: '/dashboard' })
-        }}
-      >
+      <Form action=''>
         <div className='grid gap-6'>
           <div className='relative flex items-center justify-center'>
             <hr className='absolute w-full inset-0' />
