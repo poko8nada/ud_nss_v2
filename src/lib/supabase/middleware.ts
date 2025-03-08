@@ -39,11 +39,14 @@ export async function updateSession(request: NextRequest) {
 
   // IMPORTANT: DO NOT REMOVE auth.getUser()
 
+  console.log('Request Cookies:', request.cookies.getAll())
+
   const {
     data: { user },
   } = await supabase.auth.getUser()
 
-  console.log('user:', user)
+  // console.log('Supabase auth:', supabase.auth)
+  console.log('User:', user)
 
   if (
     !user &&

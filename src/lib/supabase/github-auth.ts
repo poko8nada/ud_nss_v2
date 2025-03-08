@@ -12,9 +12,12 @@ export async function signInWithGithub() {
   } = await supabase.auth.signInWithOAuth({
     provider: 'github',
     options: {
-      redirectTo: `${process.env.HOST_URL}/api/auth/callback`,
+      redirectTo: `${process.env.HOST_URL}/auth/callback`,
     },
   })
+
+  console.log('url:', `${process.env.HOST_URL}/auth/callback`)
+
   if (error) console.error('githubログインエラー:', error.message)
   if (!error && url) redirect(url)
 }
